@@ -54,7 +54,7 @@ As you can see, we're not executing the `whatsForDinner()` function here, we're 
 the `whatsForDinner()` function at a later point in time, when we're curious about what exactly is in Fat Bastard's belly.
 
 The feature allowing `whatsForDinner()` to still access the variables within its parent function long after the parent
-function has executed, is called a 'closure'. In this case, the `fatBastard()` function is a closure.
+function has executed, is called a 'closure'.
 
 ![Fat Bastard in a moment of spiritual clarity.](https://66.media.tumblr.com/11911f29151cb0ff4813f9d11689cdc8/tumblr_mvjxzdTtV91ror07qo1_500.gif)
 
@@ -224,3 +224,5 @@ their implications.
 
 - [MDN - Closures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures)
 - [Closures](http://dmitrysoshnikov.com/ecmascript/chapter-6-closures/#one-codescopecode-value-for-them-all)
+
+<p class='util--hide'>View <a href='https://learn.co/lessons/javascript-closures'>Closures</a> on Learn.co and start learning to code for free.</p>
