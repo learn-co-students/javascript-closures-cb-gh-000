@@ -33,8 +33,8 @@ the returned function to a variable, and call it when we want to know what type 
 
 ```js
 function fatBastard(meal) {
-  function whatsForDinner() {
-    if (meal === 'Mini-Me') {
+  function whatsForDinner() { // whatsForDinner() is the inner function, a closure
+    if (meal === 'Mini-Me') { // whatsForDinner() uses argument provided to the parent function 
       console.log('The wee man is in my belly!');
     } else {
       console.log(`I'm eatin' a bit of ${meal}! Burp.`);
@@ -46,15 +46,15 @@ function fatBastard(meal) {
 ```
 
 `whatsForDinner()` is an inner function of the `fatBastard()` function, and as such, it has access to all of the variables
-defined in the `fatBastard()` function (as well as the variables in its own scope, if it had any). This means that we
-can access the `meal` argument in our `whatsForDinner()` function too. However, `meal` isn't accessible _outside_ of
+defined in its parent function (along with any variables in its own scope, if it has any). This means that we
+can access the `meal` argument in our `whatsForDinner()` function. However, `meal` isn't accessible _outside_ of
 the `fatBastard()` function, giving us some semblance of 'private' variables. This is one possible use case for closures.
 
 As you can see, we're not executing the `whatsForDinner()` function here, we're merely returning it. We can then run
 the `whatsForDinner()` function at a later point in time, when we're curious about what exactly is in Fat Bastard's belly.
 
-The feature allowing `whatsForDinner()` to still access the variables within its parent function long after the parent
-function has executed, is called a 'closure'.
+The reason `whatsForDinner()` still has access to the variables within its parent function long after the parent
+function has executed is because `whatsForDinner()` is a 'closure'.
 
 ![Fat Bastard in a moment of spiritual clarity.](https://66.media.tumblr.com/11911f29151cb0ff4813f9d11689cdc8/tumblr_mvjxzdTtV91ror07qo1_500.gif)
 
@@ -76,14 +76,13 @@ whatsInHisTummy(); // prints 'The wee man is in my belly!'
 
 ## Gotchas
 
-The environment of a closure is remembered and not discarded. That means that the variables in that scope are shared
-(just like regular variables), and can also be changed. This is something you need to be aware of. To illustrate, let's
+When a closure is created, its environment is remembered and not discarded. That means that the variables in that scope are shared (just like regular variables), and can also be changed. This is something you need to be aware of. To illustrate, let's
 expand on what Fat Bastard can do with his meal, by allowing him to digest it:
 
 ```js
 function fatBastard(meal) {
-  function whatsForDinner() {
-    if (!meal) {
+  function whatsForDinner() { // whatsForDinner() is an inner function, a closure
+    if (!meal) { // whatsForDinner() uses argument provided to the parent function 
       console.log('My belly is empty. Woe is me.');
     } else if (meal === 'Mini-Me') {
       console.log('The wee man is in my belly!');
@@ -92,8 +91,8 @@ function fatBastard(meal) {
     }
   }
 
-  function digest() {
-    meal = undefined;
+  function digest() { // digest() is an inner function, a closure
+    meal = undefined; // digest() uses argument provided to the parent function 
   }
 
   return {
@@ -103,8 +102,7 @@ function fatBastard(meal) {
 }
 ```
 
-Keep in mind that we're now returning **an object** with references to our `whatsForDinner()` and `digest()` functions,
-meaning that now we **do** need to use the key names to refer to them! Let's serve him another slab of beef, and give him
+Keep in mind that we're now returning **an object** with references to our `whatsForDinner()` and `digest()` functions, meaning that now we **do** need to use the key names to refer to them! Let's serve him another slab of beef, and give him
 some time to digest it:
 
 ```js
@@ -137,10 +135,10 @@ that information from him. He's certainly not going to tell us. Let's represent 
 
 ```js
 function raspyDoorGuy() {
-  const password = 'yarr';
+  const password = 'yarr'; // password is a local variable created by raspyDoorGuy()
 
-  function givePassword(givenPassword) {
-    if (givenPassword === password) {
+  function givePassword(givenPassword) { // givePassword() is the inner function, a closure
+    if (givenPassword === password) { // givePassword() uses variable declared in the parent function 
       console.log('Ye may enter.');
     } else {
       console.log('Begone, landlubber!');
@@ -168,31 +166,30 @@ const { givePassword } = raspyDoorGuy();
 givePassword('kittens'); // prints 'Begone, landlubber!'
 ```
 
-The `givePassword()` function can still access the `password` variable defined in its parent function scope, since the
-`raspyDoorGuy()` function is a closure. This is how he can check if the password we gave is the right one. Unfortunately
+The `givePassword()` function can still access the `password` variable defined in the scope of its parent function because `givePassword()` is a closure. This is how the man behind the door can check if the password we gave is the right one. Unfortunately
 for us, we still don't know the right password. What if we could bribe him? That would help us out. Since everyone has
 a set of internal moral beliefs, we can abstract away that functionality. All we care about is if he thinks our bribe
 is enough.
 
 ```js
 function raspyDoorGuy() {
-  const password = 'yarr';
+  const password = 'yarr'; // password is a local variable created by raspyDoorGuy()
 
-  function givePassword(givenPassword) {
-    if (givenPassword === password) {
+  function givePassword(givenPassword) { // givePassword() is an inner function, a closure
+    if (givenPassword === password) { // givePassword() uses variable declared in the parent function 
       console.log('Ye may enter.');
     } else {
       console.log('Begone, landlubber!');
     }
   }
 
-  function willBreakPrinciples(bribeAmount) {
+  function willBreakPrinciples(bribeAmount) { // willBreakPrinciples() is the private method
     return bribeAmount >= 50;
   }
 
-  function bribe(amount) {
-    if (willBreakPrinciples(amount)) {
-      return password;
+  function bribe(amount) { // bribe() is an inner function, a closure
+    if (willBreakPrinciples(amount)) { // bribe() uses private method created in the parent function
+      return password; // bribe() uses variable declared in the parent function 
     } else {
       console.log("Pssht. That won't work.");
     }
@@ -206,7 +203,7 @@ function raspyDoorGuy() {
 ```
 
 If we take a look at the code above, we see that there are now *three* functions, but we only return two. This means
-that the `willBreakPrinciples()` function is *private* — it can only be accessed in the closure. This sort of emulates
+that the `willBreakPrinciples()` function is *private* — it can only be accessed by the two closures (`givePassword()` and `bribe()`) that share the same environment. This sort of emulates
 private methods you see in other programming languages. There's no way for us to know how much a good bribe would be,
 but if we give him enough money, we'll get the password:
 
