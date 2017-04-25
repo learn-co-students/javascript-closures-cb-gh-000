@@ -112,11 +112,28 @@ digest();
 whatsForDinner(); // prints 'My belly is empty. Woe is me.'
 ```
 
+**Note:** 
+If you have never seen the syntax above `const { whatsForDinner, digest } = fatBastard('ribeye');` don't be alarmed! That's a new ES6 feature called (Object Destructuring)[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Object_destructuring].  Basically, developers frequently found themselves having a large JS object such as a response from an API and they might want to declare several variables where the **name of the variable is the same as the name of the key of the object**. Example:
+```js
+var firstName = response.firstName;
+var lastName = response.lastName;
+var url = response.url;
+// ...
+```
+ES6 provides a shortcut for doing just this task!  What do you think are the values of the variables `a`, `b`, and `c` here:
+```js
+var obj = {a: 1, b: 2, c: 3};
+var {a, b, c} = obj;
+```
+Check out the documentation and experiment in the console.
+
 Another thing to watch out for is that closures are the most common source of performance issues and memory leaks. Since
 the variables that are closed over might still be in use, they're either never or barely picked up by the garbage
 collection.
 
-**Note:** Garbage collection (GC) is basically something that happens in the background to automatically manage the
+**Note:** 
+
+Garbage collection (GC) is basically something that happens in the background to automatically manage the
 memory used by our application. Stuff that's no longer being used by the program takes up unnecessary memory, and the GC
 is responsible for cleaning it up.
 
