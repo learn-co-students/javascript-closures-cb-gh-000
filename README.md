@@ -113,7 +113,7 @@ whatsForDinner(); // prints 'My belly is empty. Woe is me.'
 ```
 
 **Note:** 
-If you have never seen the syntax above `const { whatsForDinner, digest } = fatBastard('ribeye');` don't be alarmed! That's a new ES6 feature called (Object Destructuring)[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Object_destructuring].  Basically, developers frequently found themselves having a large JS object such as a response from an API and they might want to declare several variables where the **name of the variable is the same as the name of the key of the object**. Example:
+If you have never seen the syntax above `const { whatsForDinner, digest } = fatBastard('ribeye');` don't be alarmed! That's a new ES6 feature called [Object Destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Object_destructuring).  Basically, developers frequently found themselves having a large JS object such as a response from an API and they might want to declare several variables where the **name of the variable is the same as the name of the key of the object**. Example:
 ```js
 var firstName = response.firstName;
 var lastName = response.lastName;
