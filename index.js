@@ -1,1 +1,2 @@
-const app = "I don't do much."
+/*jshint esversion: 6 */
+const app = "I don't do much.";
