@@ -5,7 +5,7 @@ JavaScript Closures
 
 1. Explain what a closure is
 2. Explain how a closure works
-3. Practice using a closure
+3. Practice usihng a closure
 4. Describe use cases for closures in JavaScript
 
 ## Introduction — The Spy Who Ate Me
